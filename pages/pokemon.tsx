@@ -30,7 +30,7 @@ const useRandomPokemon = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
-  const handleClick = async () => {
+  const getPokemon = async () => {
     setLoading(true);
 
     fetch(getURL())
@@ -49,12 +49,12 @@ const useRandomPokemon = () => {
   return {
     loading,
     pokemon,
-    handleClick
+    getPokemon
   }
 }
 
 export default function Home() {
-  const { loading, pokemon, handleClick } = useRandomPokemon();
+  const { loading, pokemon, getPokemon } = useRandomPokemon();
 
   return (
     <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
@@ -70,7 +70,7 @@ export default function Home() {
           <Button
             colorScheme="red"
             size="lg"
-            onClick={handleClick}
+            onClick={getPokemon}
             isLoading={loading}
           >
             SUMMON POKEMON
