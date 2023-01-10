@@ -1,6 +1,8 @@
 "use client"
 
-import { Alert, Box, Button, Card, CardBody, useToast } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody } from "@chakra-ui/react";
+import { useRouter } from 'next/navigation';
+
 import { RandomPokemon } from "../../components";
 import { Pokemon } from "../../model";
 
@@ -9,13 +11,10 @@ interface Props {
 }
 
 export default function PokemonView({ pokemon }: Props) {
-  const toast = useToast()
+  const router = useRouter()
   const handleClick = () => {
-    toast({
-      title: 'Gimana client fetch nya buat get random pokemon?',
-      status: 'error',
-      isClosable: true,
-    })
+    // to refetch getPokemon in page.tsx
+    router.refresh()
   }
   return (
     <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
