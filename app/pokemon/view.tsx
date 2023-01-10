@@ -1,8 +1,7 @@
 "use client"
 
-import { Alert, Box, Button, Card, CardBody, useToast } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, Flex } from "@chakra-ui/react";
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
 import { RandomPokemon } from "../../components";
 import { Pokemon } from "../../model";
 
@@ -12,22 +11,11 @@ interface Props {
 
 export default function PokemonView({ pokemon }: Props) {
   const router = useRouter()
-  const [isPending, startTransition] = useTransition()
-  const toast = useToast()
 
-  console.log(isPending)
-
-  const handleClick = () => {
-    toast({
-      title: 'Gimana client fetch nya buat get random pokemon?',
-      status: 'error',
-      isClosable: true,
-    })
-
-    startTransition(() => {
-      router.refresh()
-    })
+  const handleNumberClick = (id: string) => {
+    router.push(`/pokemon?id=${id}`)
   }
+
   return (
     <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
       <Card shadow="2xl" size="lg">
@@ -38,10 +26,10 @@ export default function PokemonView({ pokemon }: Props) {
           gap={10}
         >
           <RandomPokemon pokemon={pokemon} />
-
-          <Button colorScheme="red" size="lg" onClick={handleClick}>
-            SUMMON POKEMON
-          </Button>
+          <Flex gap={4}>
+            <Button colorScheme="red" size="lg" onClick={() => handleNumberClick('1')}>1</Button>
+            <Button colorScheme="red" size="lg" onClick={() => handleNumberClick('2')}>2</Button>
+          </Flex>
         </CardBody>
       </Card>
     </Box>
