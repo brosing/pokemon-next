@@ -19,44 +19,44 @@ export interface Pokemon {
   weight: number;
 }
 
-export interface Ability {
+interface Ability {
   ability: Species;
   is_hidden: boolean;
   slot: number;
 }
 
-export interface Species {
+interface Species {
   name: string;
   url: string;
 }
 
-export interface GameIndex {
+interface GameIndex {
   game_index: number;
   version: Species;
 }
 
-export interface Move {
+interface Move {
   move: Species;
   version_group_details: VersionGroupDetail[];
 }
 
-export interface VersionGroupDetail {
+interface VersionGroupDetail {
   level_learned_at: number;
   move_learn_method: Species;
   version_group: Species;
 }
 
-export interface GenerationV {
+interface GenerationV {
   "black-white": Sprites;
 }
 
-export interface GenerationIv {
+interface GenerationIv {
   "diamond-pearl": Sprites;
   "heartgold-soulsilver": Sprites;
   platinum: Sprites;
 }
 
-export interface Versions {
+interface Versions {
   "generation-i": GenerationI;
   "generation-ii": GenerationIi;
   "generation-iii": GenerationIii;
@@ -67,7 +67,7 @@ export interface Versions {
   "generation-viii": GenerationViii;
 }
 
-export interface Sprites {
+interface Sprites {
   back_default: string;
   back_female: null;
   back_shiny: string;
@@ -81,12 +81,12 @@ export interface Sprites {
   animated?: Sprites;
 }
 
-export interface GenerationI {
+interface GenerationI {
   "red-blue": RedBlue;
   yellow: RedBlue;
 }
 
-export interface RedBlue {
+interface RedBlue {
   back_default: string;
   back_gray: string;
   back_transparent: string;
@@ -95,13 +95,13 @@ export interface RedBlue {
   front_transparent: string;
 }
 
-export interface GenerationIi {
+interface GenerationIi {
   crystal: Crystal;
   gold: Gold;
   silver: Gold;
 }
 
-export interface Crystal {
+interface Crystal {
   back_default: string;
   back_shiny: string;
   back_shiny_transparent: string;
@@ -112,7 +112,7 @@ export interface Crystal {
   front_transparent: string;
 }
 
-export interface Gold {
+interface Gold {
   back_default: string;
   back_shiny: string;
   front_default: string;
@@ -120,55 +120,55 @@ export interface Gold {
   front_transparent?: string;
 }
 
-export interface GenerationIii {
+interface GenerationIii {
   emerald: Emerald;
   "firered-leafgreen": Gold;
   "ruby-sapphire": Gold;
 }
 
-export interface Emerald {
+interface Emerald {
   front_default: string;
   front_shiny: string;
 }
 
-export interface Home {
+interface Home {
   front_default: string;
   front_female: null;
   front_shiny: string;
   front_shiny_female: null;
 }
 
-export interface GenerationVii {
+interface GenerationVii {
   icons: DreamWorld;
   "ultra-sun-ultra-moon": Home;
 }
 
-export interface DreamWorld {
+interface DreamWorld {
   front_default: string;
   front_female: null;
 }
 
-export interface GenerationViii {
+interface GenerationViii {
   icons: DreamWorld;
 }
 
-export interface Other {
+interface Other {
   dream_world: DreamWorld;
   home: Home;
   "official-artwork": OfficialArtwork;
 }
 
-export interface OfficialArtwork {
+interface OfficialArtwork {
   front_default: string;
 }
 
-export interface Stat {
+interface Stat {
   base_stat: number;
   effort: number;
   stat: Species;
 }
 
-export interface Type {
+interface Type {
   slot: number;
   type: Species;
 }
