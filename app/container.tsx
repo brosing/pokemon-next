@@ -2,11 +2,14 @@
 
 import { Box, Text, Button } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { PokemonTypes } from "../types/types";
 
 // import { useLocalStorage } from "../utils/hooks";
 // import { useEffect } from "react";
 
-export default function Container({ count }: { count: number }) {
+export default function Container({ types }: { types: PokemonTypes }) {
+  console.log('types', types);
+  
   // const [_, setStorage] = useLocalStorage<number>('count', count)
 
   // useEffect(() => {
