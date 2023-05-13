@@ -1,19 +1,26 @@
+// 'use client'
+
+// import {use} from 'react'
+
+// import { useLocalStorage } from '../../utils/hooks';
 import { Pokemon } from "../../model";
-import PokemonView from "./view";
+import { POKEMON_URL } from "../../utils/url";
+import PokemonCard from "./pokemon-card";
 
-const generateURL = () => {
-  const random = Math.floor(Math.random() * 99) + 1;
-  return `https://pokeapi.co/api/v2/pokemon/${random}`;
-};
-
-export const getPokemon = async (): Promise<Pokemon> => {
-  return fetch(generateURL()).then((res) => res.json())
+export const getRandomPokemon = async (count: number): Promise<Pokemon> => {
+  const random = Math.floor(Math.random() * count) + 1;
+  const url = `${POKEMON_URL}/${random}`;
+  return fetch(url).then((res) => res.json());
 };
 
 export default async function PokemonPage() {
-  const pokemon = await getPokemon();
+  // const [count] = useLocalStorage('count', 100);
+  const pokemon = await getRandomPokemon(1000);
 
   return (
-    <PokemonView pokemon={pokemon} />
+    <PokemonCard
+      name={pokemon.name}
+      url={pokemon?.sprites.other?.["official-artwork"].front_default}
+    />
   );
 }

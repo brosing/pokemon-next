@@ -1,3 +1,5 @@
+'use client'
+
 import Provider from "./provider"
 
 export default function RootLayout({
@@ -6,10 +8,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html>
-      <head />
+    <html lang="en">
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   )

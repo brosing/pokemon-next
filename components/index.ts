@@ -1,1 +1,0 @@
-export { RandomPokemon } from './RandomPokemon'
