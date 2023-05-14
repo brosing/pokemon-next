@@ -1,10 +1,20 @@
 import { Pokemon } from '../types/pokemon';
-import { PokemonTypes } from '../types/types'
+import { PokemonTypes, PokemonType } from '../types/types'
 
 const BASE_URL = 'https://pokeapi.co/api/v2'
 
 export const getPokemonTypes = (): Promise<PokemonTypes> => {
   return fetch(`${BASE_URL}/type`).then(res => res.json())
+};
+
+export const getPokemonByType = (type: string): Promise<PokemonType> => {
+  return fetch(`${BASE_URL}/type/${type}`).then(res => {
+    if (!res.ok) {
+      return Promise.reject(res.status)
+    }
+
+    return res.json()
+  })
 };
 
 export const getRandomPokemon = async (count: number = 1000): Promise<Pokemon> => {

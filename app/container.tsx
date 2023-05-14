@@ -1,44 +1,67 @@
-'use client'
+"use client";
 
-import { Box, Text, Button } from "@chakra-ui/react";
+import { Flex, Text, Link, Grid } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { PokemonTypes } from "../types/types";
-
-// import { useLocalStorage } from "../utils/hooks";
-// import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Container({ types }: { types: PokemonTypes }) {
-  console.log('types', types);
-  
-  // const [_, setStorage] = useLocalStorage<number>('count', count)
-
-  // useEffect(() => {
-  //   setStorage(count)
-  // }, [count, setStorage])
-
   return (
-    <Box
+    <Flex
+      flexDir="column"
+      gap={4}
+      px={{ base: 4, md: 14 }}
+      py={{ base: 8, md: 10 }}
       h="100vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      gap={10}
     >
-      <Text fontSize="2xl" fontWeight="bold">
-        A Home for Pokemon Summoner
-      </Text>
-      <Button
-        as={NextLink}
-        href="/pokemon"
-        colorScheme="blackAlpha"
-        rounded="full"
-        mx={5}
-        p={8}
-        fontSize="2xl"
+      <Text
+        fontSize={{ base: "3xl", md: "5xl" }}
+        fontWeight="bold"
+        textAlign="center"
       >
-        Summon Pokemon!
-      </Button>
-    </Box>
+        Choose your type!
+      </Text>
+
+      <Grid
+        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+        h="100%"
+      >
+        {types.results.map((type) => (
+          <Flex
+            key={type.name}
+            justifyContent="center"
+            alignItems="center"
+            as={motion.div}
+            whileHover={{
+              scale: [null, 1.5, 1.3],
+              transition: { duration: 0.3 },
+              textTransform: "uppercase",
+            }}
+          >
+            <Link
+              as={NextLink}
+              href={`/${type.name}`}
+              p={{ base: 2, md: 4 }}
+              _hover={{ textDecor: "none", fontWeight: "bold" }}
+            >
+              {type.name}
+            </Link>
+          </Flex>
+        ))}
+      </Grid>
+
+      <Link
+        as={NextLink}
+        href={`/pokemon`}
+        p={{ base: 2, md: 4 }}
+        textAlign="center"
+        color="darkgoldenrod"
+        fontWeight="bold"
+        opacity={0.7}
+        _hover={{ textDecor: "none" }}
+      >
+        or get random pokemon?
+      </Link>
+    </Flex>
   );
 }

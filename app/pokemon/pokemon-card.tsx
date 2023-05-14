@@ -69,7 +69,7 @@ export default function PokemonCard({ name, url }: Props) {
             fontSize="2xl"
             fontWeight="medium"
             align="center"
-            as={motion.text}
+            as={motion.p}
             animate={{ color: [`rgb(${prevRGBColor})`, `rgb(${RGBColor})`] }}
             noOfLines={1}
             overflow="hidden"
