@@ -20,5 +20,7 @@ export const getPokemonByType = (type: string): Promise<PokemonType> => {
 export const getRandomPokemon = async (count: number = 1000): Promise<Pokemon> => {
   const random = Math.floor(Math.random() * count) + 1;
   const url = `${BASE_URL}/pokemon/${random}`;
-  return fetch(url).then((res) => res.json());
+  return fetch(url, {
+    cache: 'no-store'
+  }).then((res) => res.json());
 };

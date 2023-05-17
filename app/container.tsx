@@ -3,11 +3,10 @@
 import {
   Flex,
   Box,
+  Button,
   Link,
-  FormLabel,
-  FormControl,
-  Input,
   Text,
+  Grid,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { PokemonTypes } from "../types/types";
@@ -17,18 +16,18 @@ function TypeLink({ name }: { name: string }) {
   return (
     <Box
       as={motion.div}
-      opacity="0.2"
+      opacity="0.3"
       py={2}
       whileHover={{
-        scale: [null, 1.5, 1.3],
+        scale: [null, 1.4, 1.3],
         transition: { duration: 0.3 },
-        originX: 0,
         textTransform: "uppercase",
         fontWeight: 700,
         opacity: 1,
       }}
     >
       <Link
+        color="primary"
         as={NextLink}
         href={`/${name}`}
         p={{ base: 2, md: 4 }}
@@ -44,64 +43,42 @@ export default function Container({ types }: { types: PokemonTypes }) {
   return (
     <Flex
       h="100vh"
+      gap={10}
+      flexDir="column"
       p={{ base: 8, md: 0 }}
       justifyContent="center"
       alignItems="center"
     >
-      <Flex
-        w={{ base: "100vw", md: 800 }}
-        h={{ base: "100vh", md: 400 }}
-        m="auto"
-        position="relative"
-        flexDir={{ base: "column", md: "row" }}
+
+      <Text
+        letterSpacing={{ base: 0, md: 4 }}
+        color="primary"
+        textTransform="uppercase"
       >
-        <Flex
-          flex={{ base: 0, md: 1 }}
-          flexDir="column"
-          gap={{ base: 4, md: 10 }}
-          py={{ base: 8, md: 0 }}
-          justifyContent="center"
-        >
-          <FormControl maxW={300}>
-            <FormLabel>Search</FormLabel>
-            <Input placeholder="Pokemon name" variant="flushed" px={4} />
-          </FormControl>
+        choose by type
+      </Text>
 
-          <Link
-            as={NextLink}
-            href={`/pokemon`}
-            color="darkgoldenrod"
-            fontWeight="400"
-            opacity={0.7}
-            _hover={{ textDecor: "none" }}
-          >
-            or get random one
-          </Link>
-        </Flex>
+      <Grid templateColumns='repeat(4, 1fr)' textAlign="center" w={400} h={400}>
+        {types.results.map((type) => (
+          <TypeLink key={type.name} name={type.name} />
+        ))}
+      </Grid>
 
-        <Text
-          position={{ base: "relative", md: "absolute" }}
-          top={{ base: "unset", md: "calc(50% + 50px)" }}
-          left={{ base: "unset", md: "50%" }}
-          rotate={{ base: "unset", md: "-90" }}
-          transformOrigin="left"
-          transform="auto"
-          letterSpacing={{ base: 0, md: 4 }}
-        >
-          choose by type
-        </Text>
-
-        <Box
-          flex={1}
-          overflow="auto"
-          pl={{ base: 4, md: 8 }}
-          py={{ base: 4, md: 0 }}
-        >
-          {types.results.map((type) => (
-            <TypeLink key={type.name} name={type.name} />
-          ))}
-        </Box>
-      </Flex>
+      
+      <Button
+        as={NextLink}
+        href={`/pokemon`}
+        rounded="full"
+        px={8}
+        color="white"
+        fontWeight="700"
+        background="gold"
+        _hover={{
+          backgroundImage: 'linear-gradient(rgb(0 0 0/10%) 0 0)'
+        }}
+      >
+        or get random one
+      </Button>
     </Flex>
   );
 }
