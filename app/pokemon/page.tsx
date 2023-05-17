@@ -1,20 +1,9 @@
-// 'use client'
-
-// import {use} from 'react'
-
-// import { useLocalStorage } from '../../utils/hooks';
-import PokemonCard from "./pokemon-card";
-import { getRandomPokemon } from '../../utils/api'
-import { Pokemon } from "../../types/pokemon";
+import { PokemonCard } from "../../components";
+import { getRandomPokemon } from "../../utils/api";
 
 export default async function PokemonPage() {
-  // const [count] = useLocalStorage('count', 100);
   const pokemon = await getRandomPokemon(1000);
+  const url = pokemon?.sprites.other?.["official-artwork"].front_default ?? "";
 
-  return (
-    <PokemonCard
-      name={pokemon.name}
-      url={pokemon?.sprites.other?.["official-artwork"].front_default}
-    />
-  );
+  return <PokemonCard name={pokemon.name} url={url} />;
 }

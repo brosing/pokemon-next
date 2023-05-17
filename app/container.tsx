@@ -1,44 +1,84 @@
-'use client'
+"use client";
 
-import { Box, Text, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Button,
+  Link,
+  Text,
+  Grid,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { PokemonTypes } from "../types/types";
+import { motion } from "framer-motion";
 
-// import { useLocalStorage } from "../utils/hooks";
-// import { useEffect } from "react";
-
-export default function Container({ types }: { types: PokemonTypes }) {
-  console.log('types', types);
-  
-  // const [_, setStorage] = useLocalStorage<number>('count', count)
-
-  // useEffect(() => {
-  //   setStorage(count)
-  // }, [count, setStorage])
-
+function TypeLink({ name }: { name: string }) {
   return (
     <Box
+      as={motion.div}
+      opacity="0.3"
+      py={2}
+      whileHover={{
+        scale: [null, 1.4, 1.3],
+        transition: { duration: 0.3 },
+        textTransform: "uppercase",
+        fontWeight: 700,
+        opacity: 1,
+      }}
+    >
+      <Link
+        color="primary"
+        as={NextLink}
+        href={`/${name}`}
+        p={{ base: 2, md: 4 }}
+        _hover={{ textDecor: "none" }}
+      >
+        {name}
+      </Link>
+    </Box>
+  );
+}
+
+export default function Container({ types }: { types: PokemonTypes }) {
+  return (
+    <Flex
       h="100vh"
-      display="flex"
-      flexDirection="column"
+      gap={10}
+      flexDir="column"
+      p={{ base: 8, md: 0 }}
       justifyContent="center"
       alignItems="center"
-      gap={10}
     >
-      <Text fontSize="2xl" fontWeight="bold">
-        A Home for Pokemon Summoner
+
+      <Text
+        letterSpacing={{ base: 0, md: 4 }}
+        color="primary"
+        textTransform="uppercase"
+      >
+        choose by type
       </Text>
+
+      <Grid templateColumns='repeat(4, 1fr)' textAlign="center" w={400} h={400}>
+        {types.results.map((type) => (
+          <TypeLink key={type.name} name={type.name} />
+        ))}
+      </Grid>
+
+      
       <Button
         as={NextLink}
-        href="/pokemon"
-        colorScheme="blackAlpha"
+        href={`/pokemon`}
         rounded="full"
-        mx={5}
-        p={8}
-        fontSize="2xl"
+        px={8}
+        color="white"
+        fontWeight="700"
+        background="gold"
+        _hover={{
+          backgroundImage: 'linear-gradient(rgb(0 0 0/10%) 0 0)'
+        }}
       >
-        Summon Pokemon!
+        or get random one
       </Button>
-    </Box>
+    </Flex>
   );
 }
