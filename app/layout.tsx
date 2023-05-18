@@ -1,6 +1,8 @@
-'use client'
-
 import Provider from "./provider"
+
+export const metadata = {
+  title: 'Poke X Next',
+};
 
 export default function RootLayout({
   children,

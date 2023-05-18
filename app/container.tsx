@@ -2,7 +2,6 @@
 
 import {
   Flex,
-  Box,
   Button,
   Link,
   Text,
@@ -12,15 +11,19 @@ import NextLink from "next/link";
 import { PokemonTypes } from "../types/types";
 import { motion } from "framer-motion";
 
+
 function TypeLink({ name }: { name: string }) {
   return (
-    <Box
+    <Flex
+      justifyContent="center"
+      alignItems="center"
       as={motion.div}
       opacity="0.3"
       py={2}
       whileHover={{
         scale: [null, 1.4, 1.3],
         transition: { duration: 0.3 },
+        transformOrigin: "center",
         textTransform: "uppercase",
         fontWeight: 700,
         opacity: 1,
@@ -35,7 +38,7 @@ function TypeLink({ name }: { name: string }) {
       >
         {name}
       </Link>
-    </Box>
+    </Flex>
   );
 }
 
@@ -45,7 +48,7 @@ export default function Container({ types }: { types: PokemonTypes }) {
       h="100vh"
       gap={10}
       flexDir="column"
-      p={{ base: 8, md: 0 }}
+      p={{ base: 4, md: 0 }}
       justifyContent="center"
       alignItems="center"
     >
@@ -58,7 +61,7 @@ export default function Container({ types }: { types: PokemonTypes }) {
         choose by type
       </Text>
 
-      <Grid templateColumns='repeat(4, 1fr)' textAlign="center" w={400} h={400}>
+      <Grid templateColumns='repeat(4, 1fr)' textAlign="center" w={{ base: 'full', md: 400 }} h={400}>
         {types.results.map((type) => (
           <TypeLink key={type.name} name={type.name} />
         ))}
@@ -76,6 +79,7 @@ export default function Container({ types }: { types: PokemonTypes }) {
         _hover={{
           backgroundImage: 'linear-gradient(rgb(0 0 0/10%) 0 0)'
         }}
+        prefetch
       >
         or get random one
       </Button>

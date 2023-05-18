@@ -6,8 +6,14 @@ import NextLink from "next/link";
 
 import { PokemonType } from "../../types/types";
 
-function PokemonItem({ name }: { name: string }) {
+interface Props {
+  name: string;
+  type: string;
+}
+
+function PokemonItem({ name, type }: Props) {
   const pokemonName = name.replaceAll("-", " ");
+  const link = `/${type}/${name}`
 
   return (
     <Box
@@ -26,7 +32,7 @@ function PokemonItem({ name }: { name: string }) {
       <Link
         as={NextLink}
         display="block"
-        href={`/pokemon/${name}`}
+        href={link}
         textTransform="capitalize"
         fontSize="xl"
         _hover={{ textDecor: "none", fontWeight: "bold" }}
@@ -37,11 +43,20 @@ function PokemonItem({ name }: { name: string }) {
   );
 }
 
-export default function Container({ pokemons }: { pokemons: PokemonType }) {
+interface ContainerProps {
+  mons: PokemonType;
+  type: string;
+}
+
+export default function TypeContainer({ mons, type }: ContainerProps) {
   return (
     <Flex gap={4} flexDir="column" p={10}>
-      {pokemons.pokemon.map((mon) => (
-        <PokemonItem key={mon.pokemon.name} name={mon.pokemon.name} />
+      {mons.pokemon.map((mon) => (
+        <PokemonItem
+          key={mon.pokemon.name}
+          name={mon.pokemon.name}
+          type={type}
+        />
       ))}
     </Flex>
   );

@@ -1,4 +1,11 @@
 export interface Pokemon {
+  name: string
+  image: string
+  types: string[]
+  species: string
+}
+
+export interface PokemonDTO {
   abilities: Ability[];
   base_experience: number;
   forms: Species[];
