@@ -2,7 +2,7 @@
 
 import { Flex, Text } from "@chakra-ui/react";
 
-export default function Loading() {
+export default function Error() {
   return (
     <Flex w="100vh" h="100vh" justifyContent="center" alignItems="center">
       <Flex gap={4}>

@@ -11,7 +11,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export default function Home({ params, children }: Props) {
+export default function TypeLayout({ params, children }: Props) {
   const mons = use(getPokemonByType(params.type))
   return (
     <Flex h="100vh" w="100vw">

@@ -4,7 +4,7 @@ import { Flex, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export default function Loading() {
+export default function TypePge() {
   return (
     <Flex
       w="100%"

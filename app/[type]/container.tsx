@@ -48,7 +48,7 @@ interface ContainerProps {
   type: string;
 }
 
-export default function Container({ mons, type }: ContainerProps) {
+export default function TypeContainer({ mons, type }: ContainerProps) {
   return (
     <Flex gap={4} flexDir="column" p={10}>
       {mons.pokemon.map((mon) => (
