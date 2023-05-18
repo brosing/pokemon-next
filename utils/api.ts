@@ -1,26 +1,26 @@
-import { Pokemon } from '../types/pokemon';
-import { PokemonTypes, PokemonType } from '../types/types'
+import { PokemonDTO } from "../types/pokemon";
+import { PokemonTypes, PokemonType } from "../types/types";
 
-const BASE_URL = 'https://pokeapi.co/api/v2'
+const BASE_URL = "https://pokeapi.co/api/v2";
 
 export const getPokemonTypes = (): Promise<PokemonTypes> => {
-  return fetch(`${BASE_URL}/type`).then(res => res.json())
+  return fetch(`${BASE_URL}/type`).then((res) => res.json());
 };
 
 export const getPokemonByType = (type: string): Promise<PokemonType> => {
-  return fetch(`${BASE_URL}/type/${type}`).then(res => {
+  return fetch(`${BASE_URL}/type/${type}`).then((res) => {
     if (!res.ok) {
-      return Promise.reject(res.status)
+      return Promise.reject(res.status);
     }
 
-    return res.json()
-  })
+    return res.json();
+  });
 };
 
-export const getRandomPokemon = async (count: number = 1000): Promise<Pokemon> => {
+export const getRandomPokemon = async (
+  count: number = 1000
+): Promise<Pokemon> => {
   const random = Math.floor(Math.random() * count) + 1;
   const url = `${BASE_URL}/pokemon/${random}`;
-  return fetch(url, {
-    cache: 'no-store'
-  }).then((res) => res.json());
+  return fetch(url, { cache: "no-store" }).then((res) => res.json());
 };
