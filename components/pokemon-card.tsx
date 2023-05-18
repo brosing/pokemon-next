@@ -7,18 +7,18 @@ import { useState, SyntheticEvent } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { Pokemon, PokemonDTO } from "../types/pokemon";
+import { Pokemon } from "../types/pokemon";
 import { invertColor, imageToRGBA } from "../utils/color";
 
 interface Props {
-  pokemon: Pokemon;
+  mon: Pokemon;
 }
 
-export function PokemonCard({ pokemon }: Props) {
+export function PokemonCard({ mon }: Props) {
   const [RGB, setRGB] = useState<string>("0,0,0");
   const prevRGB = usePrevious(RGB) ?? "0,0,0";
   const router = useRouter();
-  const imageSrc = pokemon.image ?? "/pokeball.png";
+  const imageSrc = mon.image ?? "/pokeball.png";
 
   const generateColor = (e: SyntheticEvent<HTMLImageElement>) => {
     const rgba = imageToRGBA(e.currentTarget);
@@ -43,7 +43,7 @@ export function PokemonCard({ pokemon }: Props) {
     >
       <Image
         src={imageSrc}
-        alt={pokemon.name}
+        alt={mon.name}
         onLoad={generateColor}
         height={360}
         width={360}
@@ -60,10 +60,10 @@ export function PokemonCard({ pokemon }: Props) {
             color: [invertColor(prevRGB), invertColor(RGB)],
           }}
         >
-          {pokemon.name}
+          {mon.name}
         </Text>
 
-        {pokemon.name !== pokemon.species && (
+        {mon.name !== mon.species && (
           <Text
             fontSize="xl"
             position="relative"
@@ -73,13 +73,13 @@ export function PokemonCard({ pokemon }: Props) {
               color: [invertColor(prevRGB), invertColor(RGB)],
             }}
           >
-            ({pokemon.species})
+            ({mon.species})
           </Text>
         )}
       </Flex>
 
       <Flex gap={4} mb={10}>
-        {pokemon.types.map((type) => (
+        {mon.types.map((type) => (
           <Text
             key={type}
             as={motion.p}

@@ -13,5 +13,5 @@ export default async function PokemonPage() {
   const data = await getRandomPokemon(1000);
   const pokemon = transformDTO(data);
 
-  return <PokemonCard pokemon={pokemon} />;
+  return <PokemonCard mon={pokemon} />;
 }
