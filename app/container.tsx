@@ -14,13 +14,16 @@ import { motion } from "framer-motion";
 
 function TypeLink({ name }: { name: string }) {
   return (
-    <Box
+    <Flex
+      justifyContent="center"
+      alignItems="center"
       as={motion.div}
       opacity="0.3"
       py={2}
       whileHover={{
         scale: [null, 1.4, 1.3],
         transition: { duration: 0.3 },
+        transformOrigin: "center",
         textTransform: "uppercase",
         fontWeight: 700,
         opacity: 1,
@@ -35,7 +38,7 @@ function TypeLink({ name }: { name: string }) {
       >
         {name}
       </Link>
-    </Box>
+    </Flex>
   );
 }
 
