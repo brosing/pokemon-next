@@ -3,7 +3,7 @@
 import { Button, Flex, Text, usePrevious } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -12,9 +12,10 @@ import { invertColor, imageToRGBA } from "../utils/color";
 
 interface Props {
   mon: Pokemon;
+  noRefresh?: boolean;
 }
 
-export function PokemonCard({ mon }: Props) {
+export function PokemonCard({ mon, noRefresh = false }: Props) {
   const [onTransition, setOnTransition] = useState(false);
   const [RGB, setRGB] = useState<string>("0,0,0");
   const prevRGB = usePrevious(RGB) ?? "0,0,0";
@@ -23,6 +24,7 @@ export function PokemonCard({ mon }: Props) {
 
   const handleImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
     const rgba = imageToRGBA(e.currentTarget);
+
     if (rgba) {
       const modifyAlpha = rgba?.split(",").slice(0, -1).join(",");
       setRGB(modifyAlpha);
@@ -30,41 +32,41 @@ export function PokemonCard({ mon }: Props) {
     setOnTransition(false);
   };
 
-  const handleClick = () => {
+  useEffect(() => {
     setOnTransition(true);
-    setTimeout(router.refresh, 100);
-  };
+  }, [mon.name]);
 
   return (
     <Flex
       h="100vh"
+      w="100%"
       flexDir="column"
       justifyContent="center"
       alignItems="center"
       gap={2}
       as={motion.div}
       background={RGB}
-      animate={{
-        backgroundColor: [`rgba(${prevRGB}, 0.3)`, `rgba(${RGB}, 0.3)`],
-      }}
+      animate={
+        noRefresh
+          ? {}
+          : { backgroundColor: [`rgba(${prevRGB}, 0.3)`, `rgba(${RGB}, 0.3)`] }
+      }
     >
-      <Flex
-        gap={2}
-        flexDir="column"
-        alignItems="center"
-        as={motion.div}
-        animate={{
-          opacity: onTransition ? 0 : 1,
-        }}
-      >
-        <Image
-          src={imageSrc}
-          alt={mon.name}
-          onLoad={handleImageLoad}
-          height={360}
-          width={360}
-          style={{ objectFit: "contain" }}
-        />
+      <Flex gap={2} flexDir="column" alignItems="center">
+        <motion.div
+          animate={{
+            opacity: onTransition ? 0 : 1,
+          }}
+        >
+          <Image
+            src={imageSrc}
+            alt={mon.name}
+            onLoad={handleImageLoad}
+            height={400}
+            width={400}
+            style={{ objectFit: "contain" }}
+          />
+        </motion.div>
 
         <Flex gap={4} alignItems="baseline">
           <Text
@@ -72,9 +74,11 @@ export function PokemonCard({ mon }: Props) {
             fontSize="3xl"
             fontWeight="bold"
             as={motion.p}
-            animate={{
-              color: [invertColor(prevRGB), invertColor(RGB)],
-            }}
+            animate={
+              noRefresh
+                ? {}
+                : { color: [invertColor(prevRGB), invertColor(RGB)] }
+            }
           >
             {mon.name}
           </Text>
@@ -85,9 +89,11 @@ export function PokemonCard({ mon }: Props) {
               position="relative"
               top="-3px"
               as={motion.p}
-              animate={{
-                color: [invertColor(prevRGB), invertColor(RGB)],
-              }}
+              animate={
+                noRefresh
+                  ? {}
+                  : { color: [invertColor(prevRGB), invertColor(RGB)] }
+              }
             >
               ({mon.species})
             </Text>
@@ -99,9 +105,11 @@ export function PokemonCard({ mon }: Props) {
             <Text
               key={type}
               as={motion.p}
-              animate={{
-                color: [invertColor(prevRGB), invertColor(RGB)],
-              }}
+              animate={
+                noRefresh
+                  ? {}
+                  : { color: [invertColor(prevRGB), invertColor(RGB)] }
+              }
             >
               {type}
             </Text>
@@ -109,28 +117,30 @@ export function PokemonCard({ mon }: Props) {
         </Flex>
       </Flex>
 
-      <Button
-        onClick={handleClick}
-        colorScheme="blackAlpha"
-        rounded="full"
-        as={motion.button}
-        h={14}
-        w={14}
-        p={0}
-        animate={{
-          backgroundColor: [`rgb(${prevRGB})`, `rgb(${RGB})`],
-          color: [invertColor(prevRGB), invertColor(RGB)],
-          rotate: onTransition ? [0, 60] : 0,
-          transition: {
-            repeat: onTransition ? Infinity : 0,
-          },
-        }}
-        whileHover={{ scale: 1.1, transition: { duration: 0.1 } }}
-        whileTap={{ scale: 0.9 }}
-        isDisabled={onTransition}
-      >
-        <RepeatIcon fontSize={24} />
-      </Button>
+      {noRefresh === false && (
+        <Button
+          onClick={router.refresh}
+          colorScheme="blackAlpha"
+          rounded="full"
+          as={motion.button}
+          h={14}
+          w={14}
+          p={0}
+          animate={{
+            backgroundColor: [`rgb(${prevRGB})`, `rgb(${RGB})`],
+            color: [invertColor(prevRGB), invertColor(RGB)],
+            rotate: onTransition ? [0, 60] : 0,
+            transition: {
+              repeat: onTransition ? Infinity : 0,
+            },
+          }}
+          whileHover={{ scale: 1.1, transition: { duration: 0.1 } }}
+          whileTap={{ scale: 0.9 }}
+          isDisabled={onTransition}
+        >
+          <RepeatIcon fontSize={24} />
+        </Button>
+      )}
     </Flex>
   );
 }

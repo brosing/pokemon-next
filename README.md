@@ -38,3 +38,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Experimental App Dir
 - Already enabled
 
+## TODO:
+[ ] move DTO to api
+[ ] Add Eslint

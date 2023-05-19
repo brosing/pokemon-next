@@ -16,7 +16,9 @@ export default function TypeLayout({ params, children }: Props) {
   return (
     <Flex h="100vh" w="100vw">
       <Container mons={mons} type={params.type} />
-      {children}
+      <Flex flex={1}>
+        {children}
+      </Flex>
     </Flex>
   )
 }
