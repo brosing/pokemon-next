@@ -7,10 +7,10 @@ import {
   Text,
   Grid,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { PokemonTypes } from "../types/types";
 import { motion } from "framer-motion";
 
+import NextLink from "next/link";
+import { PokemonTypes } from "../types/types";
 
 function TypeLink({ name }: { name: string }) {
   return (
@@ -23,7 +23,6 @@ function TypeLink({ name }: { name: string }) {
       whileHover={{
         scale: [null, 1.4, 1.3],
         transition: { duration: 0.3 },
-        transformOrigin: "center",
         textTransform: "uppercase",
         fontWeight: 700,
         opacity: 1,
@@ -70,7 +69,7 @@ export default function Container({ types }: { types: PokemonTypes }) {
       
       <Button
         as={NextLink}
-        href={`/pokemon`}
+        href="/random"
         rounded="full"
         px={8}
         color="white"

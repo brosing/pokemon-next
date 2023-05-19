@@ -17,6 +17,11 @@ export const getPokemonByType = (type: string): Promise<PokemonType> => {
   });
 };
 
+export const getPokemon = async (name: string): Promise<PokemonDTO> => {
+  const url = `${BASE_URL}/pokemon/${name}`;
+  return fetch(url).then((res) => res.json());
+};
+
 export const getRandomPokemon = async (
   count: number = 1000
 ): Promise<PokemonDTO> => {

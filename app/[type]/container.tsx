@@ -13,15 +13,16 @@ interface Props {
 
 function PokemonItem({ name, type }: Props) {
   const pokemonName = name.replaceAll("-", " ");
-  const link = `/${type}/${name}`
+  const link = `/${type}/${name}`;
 
   return (
     <Box
       as={motion.div}
       whileHover={{
         originX: 0,
-        scale: [null, 2, 1.9],
-        padding: 8,
+        scale: [null, 1.6, 1.2],
+        paddingTop: 8,
+        paddingBottom: 8,
         transition: { duration: 0.3 },
         textTransform: "uppercase",
       }}
@@ -50,7 +51,7 @@ interface ContainerProps {
 
 export default function TypeContainer({ mons, type }: ContainerProps) {
   return (
-    <Flex gap={4} flexDir="column" p={10}>
+    <Flex gap={4} flexDir="column" p={10} h="100vh" overflow="auto">
       {mons.pokemon.map((mon) => (
         <PokemonItem
           key={mon.pokemon.name}
